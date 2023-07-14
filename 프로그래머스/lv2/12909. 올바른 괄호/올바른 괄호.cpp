@@ -8,17 +8,15 @@ bool solution(string s)
 {
     stack<int> tmp;
     const char *p = s.c_str();
-    int idx = 0, det = 0;
-    
-    while (p[idx])
+    while (*p)
     {
-        if (p[idx] == '(')
-            det++;
+        if (*p == '(')
+            tmp.push('(');
+        else if (!tmp.empty() && *p == ')')
+            tmp.pop();
         else
-            det--;
-        if (det < 0)
-            break;
-        idx++;
+            return (false);
+        p++;
     }
-    return (det == 0);
+    return (tmp.empty());
 }
