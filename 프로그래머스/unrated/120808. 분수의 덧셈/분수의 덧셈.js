@@ -8,7 +8,7 @@ function solution(numer1, denom1, numer2, denom2) {
     while (small != 0)
     {
         const tmp = small;
-        small = big - Math.floor(big / small) * small;
+        small = big % small;
         big = tmp;
     }
     answer.push(numer / big);
