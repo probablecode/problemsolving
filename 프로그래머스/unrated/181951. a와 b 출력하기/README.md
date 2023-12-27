@@ -1,6 +1,6 @@
 # [level unrated] a와 b 출력하기 - 181951 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181951?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181951) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2023년 12월 3일 18:27:12
+2023년 12월 3일 18:27:47
 
 ### 문제 설명
 
