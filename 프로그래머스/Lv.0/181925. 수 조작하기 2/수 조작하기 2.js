@@ -5,11 +5,12 @@ function solution(numLog) {
         "10" : "d",
         "-10" : "a",
     }
-    return numLog.slice(1).map((v, i) => obj[v - numLog[i]]).join('');
     
-//     var answer = '';
+     var answer = '';
     
-//     for (i = 1; i < numLog.length; i++)
-//         answer += obj[numLog[i] - numLog[i - 1]];
-//     return answer;
+     for (i = 1; i < numLog.length; i++)
+         answer += obj[numLog[i] - numLog[i - 1]];
+     return answer;
+//    return numLog.slice(1).map((v, i) => obj[v - numLog[i]]).join('');
+
 }
