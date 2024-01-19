@@ -1,17 +1,4 @@
 function solution(str_list) {
-    var l = str_list.indexOf("l"), r = str_list.indexOf("r");
-    if (r === -1 && l === -1)
-        return [];
-    if (r === -1)
-        return str_list.slice(0, l);
-    if (l === -1)
-        return str_list.slice(r + 1);
-    if (l < r)
-        return str_list.slice(0, l);
-    return str_list.slice(r + 1);
-    
-    // if (r === -1 || l < r)
-    //     return str_list.slice(0, l);
-    // else
-    //     return str_list.slice(r + 1);
+  const i = str_list.findIndex((str) => /l|r/.test(str));
+  return (i === -1 ? [] : (str_list[i] === 'l' ? str_list.slice(0, i) : str_list.slice(i + 1)));
 }
