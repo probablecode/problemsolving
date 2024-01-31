@@ -6,8 +6,6 @@ function solution(participant, completion) {
         if (hash[comp]-- === 1)
             delete hash[comp];
     }
-    console.log(hash);
-    
     return (Object.keys(hash)[0]);
     
 }
