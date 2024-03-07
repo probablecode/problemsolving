@@ -6,11 +6,9 @@ using namespace std;
 vector<int> solution(vector<int> arr) 
 {
     vector<int> answer;
-    auto it = arr.begin();
-    int pre = *(it++);
-    answer.push_back(pre);
-    for (auto it = arr.begin(); it != arr.end(); it++)
-        if (pre != *it)
-            answer.push_back(pre = *it);
+
+    // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+    cout << "Hello Cpp" << endl;
+
     return answer;
 }
