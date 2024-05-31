@@ -3,23 +3,20 @@
 
 using namespace std;
 
-vector<int> solution(vector<int> pro, vector<int> sp) {
-    int day = 0, idx = 0, len = pro.size();
+vector<int> solution(vector<int> prog, vector<int> speeds) {
     vector<int> answer;
-        
-    while (idx < len) {
-        if (pro[idx] + sp[idx] * day < 100)
-            day++;
-        else {
-            int num = 1;
-            while (true) {
-                idx++;
-                if (len <= idx || pro[idx] + sp[idx] * day < 100)
-                    break;
-                num++;
-            }
-            answer.push_back(num);
+    int day = 1;
+    int idx = 0;
+    while (idx < prog.size()) {
+        int dist = 0;
+        while (idx < prog.size() && 100 <= prog[idx] + speeds[idx] * day)
+        {
+            dist++;
+            idx++;
         }
+        if (0 < dist)
+            answer.push_back(dist);        
+        day++;    
     }
     return answer;
 }
