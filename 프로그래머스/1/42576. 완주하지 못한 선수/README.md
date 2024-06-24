@@ -1,10 +1,10 @@
 # [level 1] 완주하지 못한 선수 - 42576 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42576) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42576?language=cpp) 
 
 ### 성능 요약
 
-메모리: 33.6 MB, 시간: 97.84 ms
+메모리: 33.2 MB, 시간: 35.77 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 30일 01:57:15
+2024년 06월 24일 19:25:32
 
 ### 문제 설명
 

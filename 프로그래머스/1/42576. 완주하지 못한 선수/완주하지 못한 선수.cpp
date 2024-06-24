@@ -1,15 +1,50 @@
 #include <string>
 #include <vector>
-
-// multiset으로도, map으로도 가능하다.
-#include <set> // input에 오류가 없다고 하고 풀어보자.
+#include <unordered_set>
 using namespace std;
 
 string solution(vector<string> par, vector<string> com) {
-    multiset<string> ms;
+    unordered_multiset<string> ums;
     for (auto it = par.begin(); it != par.end(); it++)
-        ms.insert(*it);
-    for (auto it = com.begin(); it != com.end(); it++)
-        ms.erase(ms.find(*it));    
-    return *(ms.begin());
+        ums.insert(*it);
+    for (auto it = com.begin(); it != com.end(); it++) {
+        ums.erase(ums.find(*it));
+    }
+    return *ums.begin();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// string solution(vector<string> par, vector<string> com) {
+//     unordered_multiset<string> um;
+//     for (vector<string>::iterator it = par.begin(); it != par.end(); it++)
+//         um.insert(*it);
+//     for (vector<string>::iterator it = com.begin(); it != com.end(); it++)
+//         um.erase(um.find(*it));
+//     return *um.begin();
+// }
