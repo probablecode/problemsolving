@@ -1,12 +1,14 @@
 #include <vector>
-#include <set>
+#include <unordered_set>
 using namespace std;
 
 int solution(vector<int> nums)
 {
-    set<int> ms;
-    for (auto it = nums.begin(); it != nums.end(); it++)
-        ms.insert(*it);
-    auto pick = nums.size() / 2;
-    return pick < ms.size() ? pick : ms.size();    
+    unordered_set<int> us;
+    int select = nums.size();
+    for (int i = 0; i < select; i++)
+        us.insert(nums[i]);
+    int unique = us.size();
+    select /= 2;
+    return select < unique ? select : unique;
 }
