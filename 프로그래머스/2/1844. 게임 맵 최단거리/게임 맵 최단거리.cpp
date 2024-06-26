@@ -8,8 +8,6 @@ queue<pair<int, int>> q;
 int answer = -1, m = 0, n = 0;
 void subBFS(vector<vector<int>> &maps, int i, int j, int current) {
     // cout << "[hmm] : " << i << ", " << j << endl;
-    if (i < 0 || m <= i || j < 0 || n <= j)
-        return;
     if (maps[i][j] == 1 && path[i][j] == YET) {
         path[i][j] = current + 1;
         q.push({i, j});
@@ -22,10 +20,14 @@ void BFS(vector<vector<int>> &maps, pair<int, int> pos) {
     int current = path[i][j];
     // cout << i << ", " << j << " : " << current << endl;
     
-     subBFS(maps, i - 1, j, current);
-     subBFS(maps, i + 1, j, current);
-     subBFS(maps, i, j - 1, current);
-     subBFS(maps, i, j + 1, current);
+    if (0 < i)
+        subBFS(maps, i - 1, j, current);
+    if (i + 1 < m)
+        subBFS(maps, i + 1, j, current);
+    if (0 < j)
+        subBFS(maps, i, j - 1, current);
+    if (j + 1 < n)
+        subBFS(maps, i, j + 1, current);
 }
 
 int solution(vector<vector<int>> maps)
