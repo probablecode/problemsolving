@@ -4,16 +4,15 @@ public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String a = sc.next();
-        
-        StringBuilder sb = new StringBuilder(a.length());
-        for (char c : a.toCharArray()) {
-            if (Character.isLowerCase(c))
-                sb.append(Character.toUpperCase(c));
-            else if (Character.isUpperCase(c))
-                sb.append(Character.toLowerCase(c));
-            else
-                sb.append(c);
+        int len = a.length();
+        char[] charArr = new char[len];
+        for (int i = 0; i < len; i++) {
+            char ch = a.charAt(i);
+            if (ch <='Z')
+                charArr[i] = ch + ('a' - 'A');
+            else if ('a' <= ch)
+                charArr[i] = ch + ('A' - 'a');               
         }
-        System.out.print(sb);
+        System.out.println(new String(charArr));
     }
 }
