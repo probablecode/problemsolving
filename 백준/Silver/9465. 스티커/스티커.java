@@ -1,20 +1,24 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 public class Main {
     public static int[][] memo;
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        int T = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        
+        int T = Integer.parseInt(br.readLine());
         for (int t = 0; t < T; t++) {
-            int n = sc.nextInt();
+            int n = Integer.parseInt(br.readLine());
             memo = new int[n][3];
             int[] high = new int[n];
             int[] low = new int[n];
-            for (int i = 0; i < n; i++)
-                high[i] = sc.nextInt();
-            for (int i = 0; i < n; i++)
-                low[i] = sc.nextInt();
+            int z = 0;
+            for (String s : br.readLine().split(" "))
+                high[z++] = Integer.parseInt(s);
+            z = 0;
+            for (String s : br.readLine().split(" "))
+                low[z++] = Integer.parseInt(s);       
             memo[0][1] = high[0];
             memo[0][2] = low[0];
             for (int i = 1; i < n; i++) {
