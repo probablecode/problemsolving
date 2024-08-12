@@ -1,16 +1,24 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
     public static int[] inputs;
     public static int[] m;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
         int len = n * (n + 1) / 2;
+
         inputs = new int[len];
         m = new int[len];
-        for (int i = 0; i < len; i++)
-            inputs[i] = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int now = i * (i + 1) / 2;
+            String[] nums = br.readLine().split(" ");
+            for (int k = 0; k <= i; k++) {
+                inputs[now++] = Integer.parseInt(nums[k]);
+            }
+        }
         m[0] = inputs[0];
         for (int i = 1; i < n; i++) {
             int pre = i * (i - 1) / 2;
@@ -29,5 +37,6 @@ public class Main {
             max = Math.max(max, m[now + i]);
         }
         System.out.println(max);
+        br.close();
     }
 }
