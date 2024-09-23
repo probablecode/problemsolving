@@ -3,64 +3,53 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static int N;
-    public static int[][] map;
-    public static int[] head;
-    public static int[] tail;
-
-    public static int min = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        map = new int[N][N];
-        head = new int[N / 2];
-        tail = new int[N / 2];
+
+        int min = Integer.MAX_VALUE;
+        int N = Integer.parseInt(br.readLine());
+        int len = N / 2;
+        int[][] s = new int[N][N];
+        int[] head = new int[N];
+        int[] tail = new int[N];
 
         for (int i = 0; i < N; i++) {
             String[] split = br.readLine().split(" ");
-            for (int j = 0; j < N; j++)
-                map[i][j] = Integer.parseInt(split[j]);
-        }
-
-        go(0, 0, 0);
-        System.out.println(min);
-        br.close();
-    }
-
-    private static void go(int h, int t, int idx) {
-        if (h == N / 2) {
-            for (int i = t; i < N / 2; i++)
-                tail[i] = idx++;
-            min = Math.min(min, solve());
-            return;
-        }
-        else if (t == N / 2) {
-            for (int i = h; i < N / 2; i++)
-                head[i] = idx++;
-            min = Math.min(min, solve());
-            return;
-        }
-
-        head[h] = idx;
-        go(h + 1, t,idx + 1);
-        tail[t] = idx;
-        go(h, t + 1, idx + 1);
-    }
-
-    private static int solve() {
-        int hScore = 0, tScore = 0;
-
-        for (int i = 0; i < N/2; i++) {
-            int h0 = head[i];
-            int t0 = tail[i];
-            for (int j = i + 1; j < N/2; j++) {
-                int h1 = head[j];
-                int t1 = tail[j];
-                hScore += (map[h0][h1] + map[h1][h0]);
-                tScore += (map[t0][t1] + map[t1][t0]);
+            for (int j = 0; j < N; j++) {
+                s[i][j] = Integer.parseInt(split[j]);
             }
         }
-        return Math.abs(hScore - tScore);
+
+        int h, t;
+
+        for (int i = 0; i < 1 << (N - 1); i++) {
+            h = 0;
+            t = 0;
+            for (int j = 0; j < N; j++) {
+                if ((i & (1 << j)) == 1 << j)
+                    head[h++] = j;
+                else
+                    tail[t++] = j;
+            }
+            if (h != len || t != len)
+                continue;
+
+            int hSum = 0;
+            int tSum = 0;
+            for (int j = 0; j < len; j++) {
+                int h0 = head[j];
+                int t0 = tail[j];
+                for (int k = j + 1; k < len; k++) {
+                    int h1 = head[k];
+                    int t1 = tail[k];
+                    hSum += (s[h1][h0] + s[h0][h1]);
+                    tSum += (s[t1][t0] + s[t0][t1]);
+                }
+            }
+            min = Math.min(min, Math.abs(hSum - tSum));
+        }
+        System.out.println(min);
+        br.close();
     }
 }
