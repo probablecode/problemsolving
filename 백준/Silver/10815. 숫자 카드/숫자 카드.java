@@ -1,25 +1,44 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
 
 public class Main {
+    public static int[] arr;
+    public static int N;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        Set<Integer> set = new HashSet<>();
-        for (String num : br.readLine().split(" "))
-            set.add(Integer.parseInt(num));
+        N = Integer.parseInt(br.readLine());
+        arr = new int[N];
+        String[] split = br.readLine().split(" ");
+        for (int i = 0; i < N; i++)
+            arr[i] = Integer.parseInt(split[i]);
+        Arrays.sort(arr);
+
+
+
         int M = Integer.parseInt(br.readLine());
-        int[] ans = new int[M];
-        int cnt = 0;
-        for (String num : br.readLine().split(" "))
-            ans[cnt++] = set.contains(Integer.parseInt(num)) ? 1 : 0;
-        StringBuffer sb = new StringBuffer(M * 2 + 1);
-        sb.append(String.valueOf(ans[0]));
+        split = br.readLine().split(" ");
+        System.out.print(isIn(Integer.parseInt(split[0])) ? "1" : "0");
         for (int i = 1; i < M; i++)
-            sb.append(String.format(" %d", ans[i]));
-        System.out.println(sb.toString());
+            System.out.print(isIn(Integer.parseInt(split[i])) ? " 1" : " 0");
         br.close();
     }
+
+    private static boolean isIn(int x) {
+        int l = 0;
+        int r = N - 1;
+        while (l <= r) {
+            int m = (l + r) / 2;
+            if (arr[m] == x)
+                return true;
+            else if (arr[m] < x)
+                l = m + 1;
+            else
+                r = m - 1;
+        }
+        return false;
+    }
+
 }
