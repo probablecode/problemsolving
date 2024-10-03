@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 public class Main {
     public static long mod = 1_000_000_007L;
     public static void main(String[] args) throws IOException {
@@ -14,13 +13,14 @@ public class Main {
                 System.out.println(0);
                 continue;
             }
+            L /= 2;
             long[] m = new long[L + 1];
             m[0] = 1;
 
-            for (int i = 2; i <= L; i += 2) {
+            for (int i = 1; i <= L; i ++) {
                 long put = 0;
-                for (int j = 0; j <= i - 2; j += 2)
-                    put = (put + ((m[j] % mod) * (m[i - 2 -j] % mod) % mod)) % mod;
+                for (int j = 0; j <= i - 1; j++)
+                    put = (put + (m[j] * m[i - 1 -j])) % mod;
                 m[i] = put;
             }
             System.out.println(m[L]);
