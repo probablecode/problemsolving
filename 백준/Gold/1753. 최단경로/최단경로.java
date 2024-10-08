@@ -7,74 +7,65 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Main {
-    public static int V;
-    public static int E;
-    public static int K;
-
-    public static ArrayList<LinkedList<Edge>> adjList;
-    public static Queue<Dist> pq = new PriorityQueue<>();
-    public static int[] distance;
-
+    public static final int MAX = Integer.MAX_VALUE;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int V, E, K;
         String[] V_E = br.readLine().split(" ");
         V = Integer.parseInt(V_E[0]);
         E = Integer.parseInt(V_E[1]);
         K = Integer.parseInt(br.readLine());
-        adjList= new ArrayList<>(V + 1);
-        distance = new int[V + 1];
-        for (int i = 0; i <= V; i++) {
+        ArrayList<LinkedList<Edge>> adjList = new ArrayList<>(V);
+        int[] dist = new int[V];
+        for (int i = 0; i < V; i++) {
+            dist[i] = MAX;
             adjList.add(new LinkedList<>());
-            distance[i] = Integer.MAX_VALUE;
         }
-
         for (int i = 0; i < E; i++) {
             String[] u_v_w = br.readLine().split(" ");
-            int u = Integer.parseInt(u_v_w[0]);
-            int v = Integer.parseInt(u_v_w[1]);
+            int u = Integer.parseInt(u_v_w[0]) - 1;
+            int v = Integer.parseInt(u_v_w[1]) - 1;
             int w = Integer.parseInt(u_v_w[2]);
             adjList.get(u).add(new Edge(v, w));
         }
-        distance[K] = 0;
-        pq.add(new Dist(K, 0));
+        Queue<Dist> pq = new PriorityQueue<>();
+        dist[K - 1] = 0;
+        pq.add(new Dist(0, K - 1));
         while (!pq.isEmpty()) {
-            Dist poll = pq.poll();
-            for (Edge e : adjList.get(poll.dst)) {
-                if (poll.cost + e.w < distance[e.d]) {
-                    distance[e.d] = poll.cost + e.w;
-                    pq.add(new Dist(e.d, distance[e.d]));
+            Dist d = pq.poll();
+            int base = d.cost;
+            for (Edge e : adjList.get(d.dst)) {
+                int update = base + e.weight;
+                if (update < dist[e.to]) {
+                    dist[e.to] = update;
+                    pq.add(new Dist(update, e.to));
                 }
             }
         }
 
-        for (int i = 1; i <= V; i++) {
-            System.out.println(distance[i] == Integer.MAX_VALUE ? "INF" : distance[i]);
-        }
+        for (int i = 0; i < V; i++)
+            System.out.println(dist[i] == MAX ? "INF" : dist[i]);
         br.close();
     }
 
     static class Edge {
-        int d;
-        int w;
-        public Edge(int d_, int w_) { d = d_;w = w_;}
+        public Edge(int t, int w) { this.to = t; this.weight = w; }
+        int to;
+        int weight;
     }
 
-    static class Dist implements Comparable {
-        int dst;
+    static class Dist implements Comparable<Dist> {
+        public Dist(int c, int d) {cost = c; dst = d;}
         int cost;
-
-        public Dist(int d, int c) {
-            dst = d;
-            cost = c;
-        }
+        int dst;
 
         @Override
-        public int compareTo(Object o) {
-            if (o instanceof Dist) {
-                if (((Dist)o).cost < this.cost)
-                    return 1;
-            }
-            return -1;
+        public int compareTo(Dist o) {
+            if (this.cost > o.cost)
+                return 1;
+            else if (this.cost < o.cost)
+                return -1;
+            return 0;
         }
     }
 }
